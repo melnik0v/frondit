@@ -14,8 +14,8 @@ module Frondit # :nodoc:
       action_list        = {}
       action_list[:only] = config[:on] if config[:on].present?
       before_action action_list do
-        gon.policies               = {} if gon.policies.nil?
-        gon.policies[policy_class] = Frondit::Extractor.new(self, current_user, policy_class, config).call
+        gon.policies = {} if gon.policies.nil?
+        gon.policies[policy_class.to_s.camelize] = Frondit::Extractor.new(self, current_user, policy_class, config).call
       end
     end
   end

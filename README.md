@@ -43,7 +43,9 @@ policies() // => Array
 ```
 Particular policy:
 ```js
-policy(name) // => Object
+policy('PostPolicy') // => Object
+policy('PostPolicy').index // => true
+policy('PostPolicy').edit // => false
 ```
 
 ## Support

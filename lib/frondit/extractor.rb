@@ -27,7 +27,7 @@ module Frondit
 
     def policies
       policies_list.each_with_object({}) do |policy_name, h|
-        h[policy_name] = policy.send(policy_name)
+        h[policy_name.to_s.delete('?')] = policy.send(policy_name)
       end
     end
 
