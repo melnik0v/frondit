@@ -32,25 +32,25 @@ module Frondit
     end
 
     def policies_list
-      @_policies_list ||= Array(rules_to_check || policy_rules)
+      @policies_list ||= Array(rules_to_check || policy_rules)
     end
 
     def policy
-      @_policy ||= policy_class.new(user, record)
+      @policy ||= policy_class.new(user, record)
     end
 
     def policy_class
       return @policy_class_path if @policy_class_path.is_a? Class
-      @_policy_class ||= @policy_class_path.to_s.camelize.safe_constantize
+      @policy_class ||= @policy_class_path.to_s.camelize.safe_constantize
     end
 
     def policy_rules
-      @_policy_rules ||= policy_class.instance_methods(false).reject { |method| method.in? EXCEPT_POLICY_METHODS }
+      @policy_rules ||= policy_class.instance_methods(false).reject { |method| EXCEPT_POLICY_METHODS.include? method }
     end
 
     def record
       return if record_variable_name.blank?
-      @_record ||= controller_instance.instance_variable_get(record_variable_name)
+      @record ||= controller_instance.instance_variable_get(record_variable_name)
     end
   end
 end
