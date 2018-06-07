@@ -23,12 +23,18 @@ And then call from any controller you want:
 `policy` is a class_name or underscored class_name: `Admin::PostPolicy` or `admin/post_policy`
 
 For example:
-
-    frondit :post_policy, only: %i[show? edit? update?], on: %i[index show], record: :@post
-    frondit AuthorPolicy, on: :index, record: :@post
-    frondit :book_policy, record: :@post
-    frondit Admin::PostPolicy
-
+```
+before_action :set_post
+...
+frondit :post_policy, only: %i[show? edit? update?], on: %i[index show], record: :@post
+frondit AuthorPolicy, on: :index, record: :@post
+frondit :book_policy, record: :@post
+frondit Admin::PostPolicy
+...
+def set_post
+  @post = Post.find(params[:post_id])
+end
+```
 ### Note: 
 `record` should be string/symbol with variable name which available `before` action.
 
