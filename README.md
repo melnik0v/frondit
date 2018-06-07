@@ -47,7 +47,13 @@ policy('PostPolicy') // => Object
 policy('PostPolicy').index // => true
 policy('PostPolicy').edit // => false
 ```
+## Warning
+Be careful, always use Pundit policies and his `authorize` method in your controllers while using Frondit.
+Frondit isn't secure because of JS constrains.
 
 ## Support
 
 Frondit supports Ruby 2.2+, Rails. 4.1+
+
+## FIXME
+- Tests coverage is poor
