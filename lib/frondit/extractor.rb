@@ -45,7 +45,10 @@ module Frondit
     end
 
     def policy_rules
-      @policy_rules ||= policy_class.instance_methods(false).reject { |method| EXCEPT_POLICY_METHODS.include? method }
+      @policy_rules ||= policy_class.ancestors.map! do |klass|
+        next unless klass.to_s.include? "Policy"
+        klass.instance_methods(false).reject { |method| EXCEPT_POLICY_METHODS.include? method }
+      end.flatten.compact.uniq
     end
 
     def record
